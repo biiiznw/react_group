@@ -3,8 +3,8 @@ import recipeLogo from '../../assets/images/recipe.png'
 import classes from './Logo.css'
 
 const logo = (props) => (
-    <div className={classes.Logo}>
-        <img src={recipeLogo} alt="Recipe"/>
+    <div className={classes.Logo} style={{height: props.height}}>
+        <img src={recipeLogo} alt="MyBurger" />
     </div>
 
 );
