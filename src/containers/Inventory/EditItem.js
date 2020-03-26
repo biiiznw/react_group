@@ -54,12 +54,12 @@ function EditItem(props) {
         <Form onSubmit={updateItem}>
 
           <Form.Group>
-            <Form.Label>Product Code</Form.Label>
+            <Form.Label>Item Code</Form.Label>
             <Form.Control type="text" name="itemCode" id="itemCode" placeholder="Enter Product Code" value={item.itemCode} onChange={onChange} />
           </Form.Group>
 
           <Form.Group>
-            <Form.Label>Product Name</Form.Label>
+            <Form.Label>Item Name</Form.Label>
             <Form.Control type="text" name="itemName" id="itemName" placeholder="Enter Product Name" value={item.itemName} onChange={onChange} />
           </Form.Group>
 

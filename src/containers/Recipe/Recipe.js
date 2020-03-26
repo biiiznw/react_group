@@ -16,7 +16,6 @@ function recipt(props){
 
     return (
         <div>
-            <h2> Create an Course </h2>
         </div>
        
     );

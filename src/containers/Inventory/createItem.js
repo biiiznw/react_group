@@ -43,12 +43,12 @@ function CreateItem(props) {
         <Jumbotron>
             <Form onSubmit={saveItem}>
               <Form.Group>
-                <Form.Label>Product Code</Form.Label>
+                <Form.Label>Item Code</Form.Label>
                 <Form.Control type="text" name="itemCode" id="itemCode" placeholder="Enter item Code" value={item.itemCode} onChange={onChange} />
               </Form.Group>
 
               <Form.Group>
-                <Form.Label>Product Name</Form.Label>
+                <Form.Label>Item Name</Form.Label>
                 <Form.Control type="text" name="itemName" id="itemName" placeholder="Enter item Name" value={item.itemName} onChange={onChange} />
               </Form.Group>
 

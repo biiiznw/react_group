@@ -52,8 +52,8 @@ function ShowItem(props) {
         <span className="sr-only">Loading...</span>
       </Spinner> }    
       <Jumbotron>
-        <h1>Product Name: {data.itemName}</h1>
-        <p>Product Code: {data.itemCode}</p>
+        <h1>Item Name: {data.itemName}</h1>
+        <p>Item Code: {data.itemCode}</p>
         <p>Supplier: {data.supplier}</p>
         <p>Contact: {data.contact}</p>
         <p>For Employee: {employee.firstName} {employee.lastName} </p>
