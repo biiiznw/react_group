@@ -1,7 +1,7 @@
 import React, { useEffect, Suspense } from 'react';
 import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import 'bootstrap/dist/css/bootstrap.min.css';
+//import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Layout from './components/Layout/Layout';
 import Recipe from './containers/Recipe/Recipe';
