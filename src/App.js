@@ -1,6 +1,7 @@
 import React, { useEffect, Suspense } from 'react';
 import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Layout from './components/Layout/Layout';
 import Recipe from './containers/Recipe/Recipe';
@@ -38,13 +39,11 @@ const app = props => {
     routes = (
       <Switch>
         <Route render ={()=> < Recipe />} path="/" exact/>
-        <Route render ={()=> < Recipe />} path="/Sales"/>
+        <Route render ={()=> < Sales />} path="/sales"/>
         <Route path="/inventory" render={props => <Inventory {...props} />} />
-        <Route path="/logout" component={Logout} />
-        <Route path="/auth" render={props => <Auth {...props} />} />
+        <Route render ={()=> < Logout />} path="/logout"/>
+        <Route render ={()=> <Auth {...props} />} path="/auth"/>
         <Redirect to="/" />
-
-        
       </Switch>
     );
   }
