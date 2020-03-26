@@ -6,11 +6,11 @@ import Button from 'react-bootstrap/Button';
 import { withRouter } from 'react-router-dom';
 import React, { useState } from 'react';
 
-function CreateItem(props) {
+function CreateSupplier(props) {
     //
     const email = props.screen;
     console.log('props.screen',props.screen)
-    const [item, setItem] = useState({ _id: '', itemCode: '', itemName: '', quantity: '', supplier: '', supplierCode: '', contact: '' , email: ''  });
+    const [supplier, setSupplier] = useState({ _id: '', supplierCity: '', supplierName: '', supplierManager: '', supplierAddress: '', supplierCity: '', supplierPostal: '' , supplierPhone: ''  });
     const [showLoading, setShowLoading] = useState(false);
     //
     const apiUrl = "http://localhost:3000/api/items"
@@ -18,9 +18,9 @@ function CreateItem(props) {
     const saveItem = (e) => {
         setShowLoading(true);
         e.preventDefault();
-        const data = {itemCode: item.itemCode, itemName: item.itemName, quantity: item.quantity, 
-          supplierCode: item.supplierCode, supplier: item.supplier, 
-          contact: item.contact, email: email};
+        const data = {itemCode: supplier.supplierCity, itemName: supplier.supplierName, quantity: supplier.supplierManager, 
+          supplierCode: supplier.supplierCity, supplier: supplier.supplierAddress, 
+          contact: supplier.supplierPostal, email: email};
         //
         axios.post(apiUrl, data)
         .then((result) => {
@@ -31,7 +31,7 @@ function CreateItem(props) {
     //
     const onChange = (e) => {
         e.persist();
-        setItem({...item, [e.target.name]: e.target.value});
+        setSupplier({...supplier, [e.target.name]: e.target.value});
       }
     
     return (
@@ -46,32 +46,32 @@ function CreateItem(props) {
             <Form onSubmit={saveItem}>
               <Form.Group>
                 <Form.Label>Item Code</Form.Label>
-                <Form.Control type="text" name="itemCode" id="itemCode" placeholder="Enter item Code" value={item.itemCode} onChange={onChange} />
+                <Form.Control type="text" name="itemCode" id="itemCode" placeholder="Enter item Code" value={supplier.supplierCity} onChange={onChange} />
               </Form.Group>
 
               <Form.Group>
                 <Form.Label>Item Name</Form.Label>
-                <Form.Control type="text" name="itemName" id="itemName" placeholder="Enter item Name" value={item.itemName} onChange={onChange} />
+                <Form.Control type="text" name="itemName" id="itemName" placeholder="Enter item Name" value={supplier.supplierName} onChange={onChange} />
               </Form.Group>
 
               <Form.Group>
                 <Form.Label>Quantity</Form.Label>
-                <Form.Control type="number" name="quantity" id="quantity" placeholder="Enter Quantity" value={item.quantity} onChange={onChange} />
+                <Form.Control type="number" name="quantity" id="quantity" placeholder="Enter Quantity" value={supplier.supplierManager} onChange={onChange} />
               </Form.Group>
 
               <Form.Group>
                 <Form.Label>Supplier Code</Form.Label>
-                <Form.Control type="text" name="supplierCode" id="supplierCode" placeholder="Enter supplier Code" value={item.supplierCode} onChange={onChange} />
+                <Form.Control type="text" name="supplierCode" id="supplierCode" placeholder="Enter supplier Code" value={supplier.supplierCity} onChange={onChange} />
               </Form.Group>
 
               <Form.Group>
                 <Form.Label>Supplier</Form.Label>
-                <Form.Control type="text" name="supplier" id="supplier" placeholder="Enter supplier" value={item.supplier} onChange={onChange} />
+                <Form.Control type="text" name="supplier" id="supplier" placeholder="Enter supplier" value={supplier.supplierAddress} onChange={onChange} />
               </Form.Group>
 
               <Form.Group>
                 <Form.Label>Contact</Form.Label>
-                <Form.Control type="text" name="contact" id="contact" placeholder="Enter contact" value={item.contact} onChange={onChange} />
+                <Form.Control type="text" name="contact" id="contact" placeholder="Enter contact" value={supplier.supplierPostal} onChange={onChange} />
               </Form.Group>
                             
               <Button variant="primary" type="submit">
@@ -85,4 +85,4 @@ function CreateItem(props) {
 
 }
 
-export default withRouter(CreateItem);
+export default withRouter(CreateSupplier);
