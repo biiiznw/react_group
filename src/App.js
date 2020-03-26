@@ -20,7 +20,7 @@ import ShowItem from './containers/Inventory/ShowItem';
 import Sales from './containers/Sales/Sales';
 import Login from './containers/Auth/Login';
 import ListItem from './containers/Inventory/ListItem';
-import Logo from './containers/Recipe/home.jpeg'
+import Logo from './components/image/home.png';
 
 //
 function App() {
@@ -68,7 +68,7 @@ function App() {
           
     <div> 
         <Route render ={()=> < App/>} path="/" exact component={Image} />  
-        <Route render ={()=> < Recipe />} path="/recipe" exact/>
+        <Route render ={()=> < Recipe />} path="/recipe" exact component={Image}/>
         <Route render ={()=> < Sales />} path="/sales"/>
         <Route render ={()=> < Login />} path="/login" />
 
