@@ -46,7 +46,7 @@ const ListItem = props => {
                 </Spinner> }
                 <ListGroup>
                     {data.map((item, idx) => (
-                    <ListGroup.Item key={idx} action onClick={() => { showDetail(item._id) }}>{item.itemName}</ListGroup.Item>
+                    <ListGroup.Item key={idx} action onClick={() => { showDetail(item._id) }}>{item.itemCode} {item.itemName} {item.quantity}</ListGroup.Item>
                     ))}
                 </ListGroup>
                 </div>

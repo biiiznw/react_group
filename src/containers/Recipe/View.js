@@ -18,7 +18,7 @@ function View (props) {
 
   console.log("loading component view:");
   console.log(props);
-  const [course, setCourse] = useState('');
+  const [item, setItem] = useState('');
   // called when user clicks on Logout button
   // to clear the cookie and set the screen state variable 
   // back to its initial state.
@@ -44,34 +44,30 @@ function View (props) {
   }
   //
   const inventory = (email) => {
-
     console.log('in items: ',email)
-    //setData('n')
-    //setCourse('n')
-
   }
   //
-  const createCourse = () => {
-    console.log('in createCourse')
-    setCourse('y')
+  const createItem = () => {
+    console.log('in createItem')
+    setItem('y')
 
   }
   //
   return (
     <div className="App">
-      {course !== 'y'
+      {item !== 'y'
         ? <Jumbotron>
-            <h1>Logged In User: {employee.employeeNumber}</h1>
-            <p>Name: {employee.firstName}, {employee.lastName}</p>
-            <p>Email: {employee.email}</p> 
+            <h1>Logged In Employee: {employee.employeeNumber}</h1>
+            <p>Employee Number: {employee.employeeNumber}</p> 
+            <p>Employee Name: {employee.firstName}, {employee.lastName}</p>
             <p>
-              <Button type="button" variant="primary" onClick={() => { createCourse() }}>Create Course</Button>&nbsp;
+              <Button type="button" variant="primary" onClick={() => { createItem() }}>Create Item</Button>&nbsp;
               <Button type="button" variant="danger" onClick={() => { deleteCookie() }}>Log out</Button>
             </p>
-            <h3>Courses for logged in user:</h3>
+            <h3>Created Items by Employee:</h3>
             <ListGroup>
-            {employee.courses.map((item, idx) => (
-              <ListGroup.Item key={idx} >{item.courseName}</ListGroup.Item>
+            {employee.item.map((item, idx) => (
+              <ListGroup.Item key={idx} >{item.itemName}</ListGroup.Item>
             ))}
           </ListGroup>
           </Jumbotron>      

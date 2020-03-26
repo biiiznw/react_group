@@ -8,7 +8,7 @@ import { withRouter } from 'react-router-dom';
 
 function EditItem(props) {
   console.log('editItem props:',props.match.params)
-  const [item, setItem] = useState({ _id: '', itemCode: '', itemName: '', supplier: '', contact: ''  });  
+  const [item, setItem] = useState({ _id: '', itemCode: '', itemName: '', quantity: '', supplier: '', contact: ''  });  
   const [showLoading, setShowLoading] = useState(true);
   const apiUrl = "http://localhost:3000/api/items/" + props.match.params.id;
   //runs only once after the first render
@@ -28,7 +28,7 @@ function EditItem(props) {
   const updateItem = (e) => {
     setShowLoading(true);
     e.preventDefault();
-    const data = {itemCode: item.itemCode, itemName: item.itemName, supplier: item.supplier, contact: item.contact};
+    const data = {itemCode: item.itemCode, itemName: item.itemName, quantity: item.quantity,supplier: item.supplier, contact: item.contact};
     //mimicks vere mush rest api call
     axios.put(apiUrl, data)
       .then((result) => {
@@ -64,12 +64,17 @@ function EditItem(props) {
           </Form.Group>
 
           <Form.Group>
-            <Form.Label>Section</Form.Label>
+            <Form.Label>Quantity</Form.Label>
+            <Form.Control type="text" name="quantity" id="quantity" placeholder="Enter Quantity" value={item.quantity} onChange={onChange} />
+          </Form.Group>
+
+          <Form.Group>
+            <Form.Label>Supplier</Form.Label>
             <Form.Control type="text" name="supplier" id="supplier" placeholder="Enter Supplier" value={item.supplier} onChange={onChange} />
           </Form.Group>
 
           <Form.Group>
-            <Form.Label>Semester</Form.Label>
+            <Form.Label>Contact</Form.Label>
             <Form.Control type="text" name="contact" id="contact" placeholder="Enter Contact" value={item.contact} onChange={onChange} />
           </Form.Group>
           
