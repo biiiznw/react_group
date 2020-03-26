@@ -11,10 +11,21 @@ import axios from 'axios';
 //
 function View (props) {
   // read the info from props, coming from the ancestor component
-  const { screen, setScreen, employee } = props;
+  const { screen, setScreen } = props;
   // return a stateful value and funcion to update it
   const [data, setData] = useState();
+  const apiUrl = 'http://localhost:3001';
   //
+  var [recipes, setRecipes] = useState({});
+
+  const load_recipes = async () => {
+      //loading recipes
+      const res_recipes = await axios.get(apiUrl + '/recipe');
+      setRecipes(res_recipes);
+      //const recipes = await axios.get(apiUrl + '/recipe'); 
+  }
+
+  load_recipes();
 
   console.log("loading component view:");
   console.log(props);
@@ -55,23 +66,22 @@ function View (props) {
   //
   return (
     <div className="App">
-      {item !== 'y'
+      {recipes && recipes.items
         ? <Jumbotron>
-            <h1>Logged In Employee: {employee.employeeNumber}</h1>
-            <p>Employee Number: {employee.employeeNumber}</p> 
-            <p>Employee Name: {employee.firstName}, {employee.lastName}</p>
+            <h1>List of Recipe: </h1>
+            
             <p>
               <Button type="button" variant="primary" onClick={() => { createItem() }}>Create Item</Button>&nbsp;
               <Button type="button" variant="danger" onClick={() => { deleteCookie() }}>Log out</Button>
             </p>
-            <h3>Created Items by Employee:</h3>
+            
             <ListGroup>
-            {employee.item.map((item, idx) => (
+            {recipes.items.map((item, idx) => (
               <ListGroup.Item key={idx} >{item.itemName}</ListGroup.Item>
             ))}
           </ListGroup>
           </Jumbotron>      
-        : <CreateItem screen={screen} setScreen={setScreen} />
+        : 'NO RECIPE'
       }
     </div>
   );

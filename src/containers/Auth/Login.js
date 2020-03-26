@@ -14,7 +14,7 @@ function App() {
   //store input field data, user name and password
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-  const apiUrl = "http://localhost:3000/signin";
+  const apiUrl = "http://localhost:3001/signin";
   //send username and password to the server
   // for initial authentication
   const auth = async () => {
