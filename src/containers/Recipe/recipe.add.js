@@ -43,6 +43,7 @@ function RecipeAdd(props){
     return (
         <div>
             <Jumbotron>
+            <h1>Recipes: </h1>
                 <Form onSubmit={saveEmployee}>
                 <Form.Group>
                     <Form.Label>Recipe Name</Form.Label>
