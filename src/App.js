@@ -14,6 +14,7 @@ import ItemAdd from './containers/Item/item.add';
 import Login from './containers/Auth/Login';
 // import { createBrowserHistory } from "history";
 import Logo from './components/image/home.png';
+import axios from 'axios';
 
 //
 function App(props) {
@@ -21,6 +22,9 @@ function App(props) {
   const Image= () => <div><img src={Logo} width="100%" height="auto" /></div>;
 //   const history = createBrowserHistory();
   const [token, setToken] = useState();
+  const apiUrl = 'http://localhost:3001';
+  axios.defaults.headers.common['Authorization'] = token;
+//   axios.defaults.headers.common['Authorization'] = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlNzkzMDcyNjA4ZDRkM2VlOWYyMDc3NyIsInVzZXJuYW1lIjoiam92YW5lbWFycXVlcyIsImlhdCI6MTU4Njk3Njg1MiwiZXhwIjoxNTg3MDYzMjUyfQ.ohpfpSdKC4wMo5fRSZOUdcAanJBzk-3QScDFejqQnUo";
 
     // A wrapper for <Route> that redirects to the login
     // screen if you're not yet authenticated.
@@ -83,29 +87,46 @@ function App(props) {
           
     <div> 
         <Route render ={()=> < App/>} path="/" exact component={Image} />  
-        <PrivateRoute path="/recipes">
-            <RecipeList />
+        <PrivateRoute path="/recipes" exact>
+            <RecipeList apiUrl={apiUrl}/>
         </PrivateRoute>
-        {/* <Route render ={()=> < RecipeList />} exact path="/recipes"/> */}
-        <Route render ={()=> < RecipeAdd />} exact path="/recipes/add"/>
-        <Route render ={()=> < ItemList />} exact path="/items"/>
-        <Route render ={()=> < ItemAdd />} exact path="/items/add"/>
-        <Route render ={()=> < Login setToken={setToken} />} exact path="/login"/>
-        {/* <Route render ={()=> < InventoryList />} exact path="/inventory"/> */}
-        {/* <Route render ={()=> < Sales />} path="/sales"/>
-        <Route render ={()=> < Login />} path="/login" />
+        <PrivateRoute path="/recipes/add" exact>
+            <RecipeAdd apiUrl={apiUrl}/>
+        </PrivateRoute>
+        <PrivateRoute path="/recipes/edit/:id" exact>
+            <RecipeAdd apiUrl={apiUrl}/>
+        </PrivateRoute>
+        <PrivateRoute path="/items" exact>
+            <ItemList apiUrl={apiUrl}/>
+        </PrivateRoute>
+        <PrivateRoute path="/items/add" exact>
+            <ItemAdd apiUrl={apiUrl}/>
+        </PrivateRoute>
+        <PrivateRoute path="/items/edit/:id" exact>
+            <ItemAdd apiUrl={apiUrl}/>
+        </PrivateRoute>
+        <Route render ={()=> <Login setToken={setToken} />} exact path="/login"/>
+        {/* <Route render ={()=> <RecipeList apiUrl={apiUrl}/>} exact path="/recipes"/> */}
+        {/* <Route render ={()=> <RecipeAdd apiUrl={apiUrl}/>} exact path="/recipes/add"/> */}
+        {/* <Route render ={()=> <RecipeAdd apiUrl={apiUrl}/>} exact path="/recipes/edit/:id"/> */}
+        {/* <Route render ={()=> <ItemList apiUrl={apiUrl}/>} exact path="/items"/> */}
+        {/* <Route render ={()=> <ItemAdd apiUrl={apiUrl}/>} exact path="/items/add"/> */}
+        {/* <Route render ={()=> <ItemAdd apiUrl={apiUrl}/>} exact path="/items/edit/:id"/> */}
+        {/* <Route render ={()=> <InventoryList />} exact path="/inventory"/> */}
+        {/* <Route render ={()=> <Sales />} path="/sales"/>
+        <Route render ={()=> <Login />} path="/login" />
 
-        <Route render ={()=> < CreateEmployee />} path="/create"/>
-        <Route render ={()=> < CreateItem />} path="/createitem"/>
+        <Route render ={()=> <CreateEmployee />} path="/create"/>
+        <Route render ={()=> <CreateItem />} path="/createitem"/>
 
-        <Route render ={()=> < EditEmployee />} path="/edit/:id" />
-        <Route render ={()=> < EditItem />} path="/edititem/:id" />
+        <Route render ={()=> <EditEmployee />} path="/edit/:id" />
+        <Route render ={()=> <EditItem />} path="/edititem/:id" />
 
-        <Route render ={()=> < ListEmployee />} path="/list"/>
-        <Route render ={()=> < ListItem />} path="/listItem"/>
+        <Route render ={()=> <ListEmployee />} path="/list"/>
+        <Route render ={()=> <ListItem />} path="/listItem"/>
 
-        <Route render ={()=> < ShowEmployee />} path="/show/:id"/>
-        <Route render ={()=> < ShowItem />} path="/showitem/:id"/> */}
+        <Route render ={()=> <ShowEmployee />} path="/show/:id"/>
+        <Route render ={()=> <ShowItem />} path="/showitem/:id"/> */}
 
       </div>
         </div>
