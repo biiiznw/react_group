@@ -13,7 +13,7 @@ function CreateSupplier(props) {
     const [supplier, setSupplier] = useState({ _id: '', supplierCity: '', supplierName: '', supplierManager: '', supplierAddress: '', supplierCity: '', supplierPostal: '' , supplierPhone: ''  });
     const [showLoading, setShowLoading] = useState(false);
     //
-    const apiUrl = "http://localhost:3000/api/items"
+    const apiUrl = "http://localhost:3001/api/items"
     //
     const saveItem = (e) => {
         setShowLoading(true);

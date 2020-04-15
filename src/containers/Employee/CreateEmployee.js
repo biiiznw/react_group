@@ -11,7 +11,7 @@ const CreateEmployee = props => {
   const [employee, setEmployee] = useState({ _id: '', employeeNumber: '', firstName: '', lastName: '', 
                 email: '',department: '',position: '',phoneNumber: '',password: '' });
   const [showLoading, setShowLoading] = useState(false);
-  const apiUrl = "http://localhost:3000/";
+  const apiUrl = "http://localhost:3001/";
 
   const saveEmployee = (e) => {
     setShowLoading(true);

@@ -10,7 +10,7 @@ function EditItem(props) {
   console.log('editItem props:',props.match.params)
   const [item, setItem] = useState({ _id: '', itemCode: '', itemName: '', quantity: '', supplierCode: '', supplier: '', contact: ''  });  
   const [showLoading, setShowLoading] = useState(true);
-  const apiUrl = "http://localhost:3000/api/items/" + props.match.params.id;
+  const apiUrl = "http://localhost:3001/api/items/" + props.match.params.id;
   //runs only once after the first render
   useEffect(() => {
     setShowLoading(false);

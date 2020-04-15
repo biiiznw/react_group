@@ -13,7 +13,7 @@ function CreateItem(props) {
     const [item, setItem] = useState({ _id: '', itemCode: '', itemName: '', quantity: '', supplier: '', supplierCode: '', contact: '' , email: ''  });
     const [showLoading, setShowLoading] = useState(false);
     //
-    const apiUrl = "http://localhost:3000/api/items"
+    const apiUrl = "http://localhost:3001/api/items"
     //
     const saveItem = (e) => {
         setShowLoading(true);

@@ -10,7 +10,7 @@ function EditEmployee(props) {
   const [employee, setEmployee] = useState({_id: '', employeeNumber: '', firstName: '', lastName: '', 
   email: '',department: '',position: '',phoneNumber: '',password: '' });  
   const [showLoading, setShowLoading] = useState(true);
-  const apiUrl = "http://localhost:3000/employees/" + props.match.params.id;
+  const apiUrl = "http://localhost:3001/employees/" + props.match.params.id;
   //runs only once after the first render
   useEffect(() => {
     setShowLoading(false);

@@ -4,19 +4,30 @@ import Jumbotron from 'react-bootstrap/Jumbotron';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
+import {
+    useLocation,
+    useHistory,
+    Redirect,
+  } from "react-router-dom";
 //
 import View from '../Recipe/View'
 //
-function App() {
+function Login(props) {
   //state variable for the screen, admin or user
   const [screen, setScreen] = useState('auth');
   const [employee, setEmployee] = useState({});
   //store input field data, user name and password
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-  const apiUrl = "http://localhost:3001/signin";
+//   const apiUrl = "http://localhost:3001/signin";
+  const apiUrl = "http://localhost:3001";
   //send username and password to the server
   // for initial authentication
+
+  let history = useHistory();
+  let location = useLocation();
+  let { from } = location.state || { from: { pathname: "/" } };
+
   const auth = async () => {
     console.log('calling auth')
     console.log(email)
@@ -24,15 +35,16 @@ function App() {
       //make a get request to /authenticate end-point on the server
       const loginData = { auth: { email: email, password } }
       //call api
-      const res = await axios.post(apiUrl, loginData);
-      console.log(res.data.auth);
+      const res = await axios.post(`${apiUrl}/signin`, loginData);
+    //   console.log(res.data.auth);
       console.log(res.data.screen);
       console.log("logging retur from server when login:");
       console.log(res.data);
+      props.setToken(res.data.token);
       //process the response
       if (res.data.screen !== undefined) {
-        setEmployee(res.data.employee);
-        console.log(res.data.employee);
+        // setEmployee(res.data.employee);
+        // console.log(res.data.employee);
         setScreen(res.data.screen);
         console.log(res.data.screen);
       }
@@ -48,7 +60,7 @@ function App() {
       console.log('--- in readCookie function ---');
 
       //
-      const res = await axios.get('/read_cookie');
+      const res = await axios.get(`${apiUrl}/read_cookie`);
       // 
 
       console.log("reading the res readCookie function: ");
@@ -82,20 +94,20 @@ function App() {
         ?         
           <div> 
             <div className="form-group">
-              <label for="exampleInputEmail1">Email address</label>
+              <label>Email address</label>
               <input type="email" onChange={e => setEmail(e.target.value)}  className="form-control" />
             </div>
             <div className="form-group">
-              <label for="exampleInputPassword1">Password</label>
+              <label>Password</label>
               <input type="password" onChange={e => setPassword(e.target.value)}  className="form-control" />
             </div>
             <button onClick={auth} className="btn btn-primary">Submit</button>
           </div>
-        : <View screen={screen} setScreen={setScreen} employee={employee} setEmployee={setEmployee} />
+        : <Redirect to={{ pathname: from.pathname }} />
       }
     </div>
   );
 }
 
-export default App;
+export default Login;
 

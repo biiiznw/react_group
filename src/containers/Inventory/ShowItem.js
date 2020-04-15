@@ -10,7 +10,7 @@ function ShowItem(props) {
   const [data, setData] = useState({});
   const [employee, setEmployee] = useState({});
   const [showLoading, setShowLoading] = useState(true);
-  const apiUrl = "http://localhost:3000/api/items/" + props.match.params.id;
+  const apiUrl = "http://localhost:3001/api/items/" + props.match.params.id;
 
   useEffect(() => {
     setShowLoading(false);
