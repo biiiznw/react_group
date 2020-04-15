@@ -98,8 +98,6 @@ const ListItem = props => {
         <div>
             {drawAlert()}
             {drawModal()}
-        {items && items.length > 0
-          ? 
             <div>
               <h1>Items: </h1>
               
@@ -122,7 +120,9 @@ const ListItem = props => {
                     </tr>
                   </thead>
                   <tbody>
-                    {items.map((item, idx) => (
+                    {items && items.length > 0
+                    ?
+                    items.map((item, idx) => (
                         <tr key={idx}>
                             <td>{idx}</td>
                             <td>{item.name}</td>
@@ -133,12 +133,13 @@ const ListItem = props => {
                                 <Button type="button" variant="primary" onClick={() => clickDelete(item._id)}>Delete</Button>
                             </td>
                         </tr>
-                    ))}
+                    ))
+                    :
+                    <tr><td colSpan={5}>NO ITEMS TO SHOW</td></tr>
+                    }
                   </tbody>
                 </Table>
           </div>
-          : 'No Item to Show'
-        }
       </div>
     );
 
