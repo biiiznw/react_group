@@ -16,7 +16,7 @@ const ListItem = props => {
         // {name:'Item 1', base_unit:'kg', qty:100}
     ]);
     const [showLoading, setShowLoading] = useState(true);
-    const apiUrl = "http://localhost:3001/api/items";
+    // const apiUrl = "http://localhost:3001/api/items";
 
     useEffect(() => {
         async function fetchData() {
