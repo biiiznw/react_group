@@ -44,7 +44,8 @@ const ListItem = props => {
     return (
         <div>
         {items && items.length > 0
-          ? <Jumbotron>
+          ? 
+            <div>
               <h1>Items: </h1>
               
               <p>
@@ -80,13 +81,8 @@ const ListItem = props => {
                     ))}
                   </tbody>
                 </Table>
-            {/* <ListGroup>
-              {items.map((item, idx) => (
-                <ListGroup.Item key={idx} >{item.name} - {item.quantity} {item.baseUnit}</ListGroup.Item>
-              ))}
-            </ListGroup> */}
-            </Jumbotron>      
-          : 'NO RECIPE'
+          </div>
+          : 'No Item to Show'
         }
       </div>
     );
