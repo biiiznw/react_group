@@ -45,15 +45,33 @@ function RecipeAdd(props){
             } else if (res && res.data){
                 // console.log('res->' + JSON.stringify(res.data));
                 setItemsCombo(res.data);
-            }  
+            } 
+            
+            if (props.match.params.id){
+                console.log('MID-2');
+                const res2 = await axios.get(`${props.apiUrl}/recipe/listWithItems/${props.match.params.id}`);
+                if (res2 && res2.data && res2.data.error){
+                    console.log('Error: ' + res2.data.error);
+                } else if (res2 && res2.data){
+                    // console.log('res->' + JSON.stringify(res.data));
+                    setRecipe(res2.data.name);
+                    setItems(res2.data.items);
+                }  
+            }
         }
         fetchData();
+        
     }, []);
 
     const onChange = (state, setState, e) => {
         e.preventDefault();
         setState(e.target.value);
     }
+
+    const cancel = () => {
+        props.history.goBack();
+    }
+
     const deleteItem = (item) => {
         let temp = items.filter((i) => i._id !== item);
         setItems([...temp]);
@@ -75,8 +93,14 @@ function RecipeAdd(props){
         let newItems = items.map(i => i._id);
 
         const data = { name: recipe, items: newItems };
-
-        const res = await axios.post(`${props.apiUrl}/recipe`, data);
+        
+        let res;
+        //const res = await axios.post(`${props.apiUrl}/recipe`, data);
+        if (props.match.params.id){
+            res = await axios.put(`${props.apiUrl}/recipe/${props.match.params.id}`, data);
+        } else {
+            res = await axios.post(`${props.apiUrl}/recipe`, data);
+        }
         // setShowLoading(false);
         //props.history.push('/item');
         if (res && res.data && res.data.error){
@@ -91,7 +115,7 @@ function RecipeAdd(props){
     return (
         <div>
             <Jumbotron>
-            <h1>Recipes: </h1>
+                <h1>Recipes: </h1>
                 <Form onSubmit={saveRecipe}>
                 <Form.Group>
                     <Form.Label>Recipe Name</Form.Label>
@@ -165,6 +189,10 @@ function RecipeAdd(props){
                 <br/>
                 <Button variant="primary" type="submit">
                     Save
+                </Button>
+                &nbsp;
+                <Button variant="primary" onClick={() => cancel()}>
+                    Cancel
                 </Button>
                 </Form>
             </Jumbotron>

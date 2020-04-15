@@ -6,6 +6,7 @@ import {Link} from 'react-router-dom'
 import axios from 'axios';
 
 function RecipeList (props) {
+    let history = useHistory();
   // read the info from props, coming from the ancestor component
   const { screen, setScreen } = props;
   // return a stateful value and funcion to update it
@@ -41,6 +42,10 @@ function RecipeList (props) {
         fetchData();
     }, []);
 
+    const clickEdit = (id) => {
+        history.push(`/recipes/edit/${id}`);
+    }
+
   return (
     <div className="App">
       {recipes && recipes.length > 0
@@ -66,7 +71,7 @@ function RecipeList (props) {
                         <td>{recipe.name}</td>
                         <td>
                             <Button type="button" variant="primary">Use</Button> &nbsp;
-                            <Button type="button" variant="primary">Edit</Button> &nbsp;
+                            <Button type="button" variant="primary" onClick={() => clickEdit(recipe._id)}>Edit</Button> &nbsp;
                             <Button type="button" variant="primary">Delete</Button>
                         </td>
                     </tr>
