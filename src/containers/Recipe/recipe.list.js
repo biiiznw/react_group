@@ -109,8 +109,7 @@ function RecipeList (props) {
     <div className="App">
         {drawAlert()}
         {drawModal()}
-      {recipes && recipes.length > 0
-        ? <div>
+        <div>
             <h1>Recipes: </h1>
             <p>
                 <Link to={"/recipes/add"}>
@@ -126,7 +125,10 @@ function RecipeList (props) {
                     </tr>
                   </thead>
                   <tbody>
-                    {recipes.map((recipe, idx) => (
+                    
+                    {recipes && recipes.length > 0
+                    ?
+                    recipes.map((recipe, idx) => (
                         <tr key={idx}>
                         <td>{idx}</td>
                         <td>{recipe.name}</td>
@@ -135,13 +137,14 @@ function RecipeList (props) {
                             <Button type="button" variant="primary" onClick={() => clickEdit(recipe._id)}>Edit</Button> &nbsp;
                             <Button type="button" variant="primary" onClick={() => clickDelete(recipe._id)}>Delete</Button>
                         </td>
-                    </tr>
-                    ))}
+                        </tr>
+                    ))
+                    :
+                    <tr><td colSpan={5}>NO RECIPES TO SHOW</td></tr>
+                }
                   </tbody>
                 </Table>
           </div>      
-        : 'NO RECIPE'
-      }
     </div>
   );
 }
