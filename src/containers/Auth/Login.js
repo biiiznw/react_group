@@ -55,37 +55,37 @@ function Login(props) {
   };
   
   //check if the user already logged-in
-  const readCookie = async () => {
-    try {
-      console.log('--- in readCookie function ---');
+//   const readCookie = async () => {
+//     try {
+//       console.log('--- in readCookie function ---');
 
-      //
-      const res = await axios.get(`${apiUrl}/read_cookie`);
-      // 
+//       //
+//       const res = await axios.get(`${apiUrl}/read_cookie`);
+//       // 
 
-      console.log("reading the res readCookie function: ");
-      console.log(res.data);
+//       console.log("reading the res readCookie function: ");
+//       console.log(res.data);
 
-      if (res.data.employee !== undefined) {
-        setEmployee(res.data.employee);
-        console.log(res.data.employee)
-      }
+//       if (res.data.employee !== undefined) {
+//         setEmployee(res.data.employee);
+//         console.log(res.data.employee)
+//       }
 
-      if (res.data.screen !== undefined) {
-        setScreen(res.data.screen);
-        console.log(res.data.screen)
-      }
-    } catch (e) {
-      console.log("Error in line 66");
-      setEmployee({});
-      setScreen('auth');
-      console.log(e);
-    }
-  };
+//       if (res.data.screen !== undefined) {
+//         setScreen(res.data.screen);
+//         console.log(res.data.screen)
+//       }
+//     } catch (e) {
+//       console.log("Error in line 66");
+//       setEmployee({});
+//       setScreen('auth');
+//       console.log(e);
+//     }
+//   };
   //runs the first time the view is rendered
   //to check if user is signed in
   useEffect(() => {
-    readCookie();
+    // readCookie();
   }, []); //only the first render
   //
   return (
