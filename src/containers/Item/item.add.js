@@ -72,7 +72,6 @@ function ItemAdd(props){
         <div>
             <Jumbotron>
                 <h1>Items: </h1>
-                <h1>{props.match.params.id} </h1>
                 <Form onSubmit={saveItem}>
                 <Form.Group>
                     <Form.Label>Item Name</Form.Label>
