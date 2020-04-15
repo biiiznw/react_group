@@ -48,7 +48,6 @@ function RecipeAdd(props){
             } 
             
             if (props.match.params.id){
-                console.log('MID-2');
                 const res2 = await axios.get(`${props.apiUrl}/recipe/listWithItems/${props.match.params.id}`);
                 if (res2 && res2.data && res2.data.error){
                     console.log('Error: ' + res2.data.error);
