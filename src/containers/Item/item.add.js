@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Jumbotron from 'react-bootstrap/Jumbotron';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
@@ -30,7 +30,13 @@ function ItemAdd(props){
         // const data = { firstName: employee.firstName, lastName: employee.lastName, 
         //   email: employee.email, employeeNumber: employee.employeeNumber, department: employee.department, password: employee.password,
         //   position: employee.position, phoneNumber: employee.phoneNumber};
-        const res = await axios.post(`${props.apiUrl}/item`, {name: item.itemName, quantity: item.itemQuantity, baseUnit: item.itemBaseUnit});
+        let res;
+        if (props.match.params.id){
+            res = await axios.put(`${props.apiUrl}/item/${props.match.params.id}`, {name: item.itemName, quantity: item.itemQuantity, baseUnit: item.itemBaseUnit});
+        } else {
+            res = await axios.post(`${props.apiUrl}/item`, {name: item.itemName, quantity: item.itemQuantity, baseUnit: item.itemBaseUnit});
+        }
+        
         if (res && res.data && res.data.error){
             // setShowLoading(false);
             //props.history.push('/item');
@@ -41,11 +47,32 @@ function ItemAdd(props){
             props.history.goBack();
         }
       };
+    
+      useEffect(() => {
+        
+        async function fetchData(idItem) {
+            const res = await axios.get(`${props.apiUrl}/item/${idItem}`);
+            if (res && res.data && res.data.error){
+                console.log('Error: ' + res.data.error);
+            } else if (res && res.data){
+                // console.log('res->' + JSON.stringify(res.data));
+                setItem({
+                    itemName:res.data.name,
+                    itemQuantity: res.data.quantity,
+                    itemBaseUnit: res.data.baseUnit,
+                });
+            }  
+        }
+        if (props.match.params.id){
+            fetchData(props.match.params.id);
+        }
+    }, []);
 
     return (
         <div>
             <Jumbotron>
                 <h1>Items: </h1>
+                <h1>{props.match.params.id} </h1>
                 <Form onSubmit={saveItem}>
                 <Form.Group>
                     <Form.Label>Item Name</Form.Label>

@@ -4,7 +4,7 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import Jumbotron from 'react-bootstrap/Jumbotron';
 import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
-import {Link} from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 import axios from 'axios';
 // import Spinner from 'react-bootstrap/Spinner';
 // import { withRouter } from 'react-router-dom';
@@ -12,6 +12,7 @@ import axios from 'axios';
 
 //List items
 const ListItem = props => {
+    let history = useHistory();
     const [items, setItems] = useState([
         // {name:'Item 1', base_unit:'kg', qty:100}
     ]);
@@ -31,15 +32,9 @@ const ListItem = props => {
         fetchData();
     }, []);
     
-      const showDetail = (id) => {
-        props.history.push({
-          pathname: '/showitem/' + id
-        });
-      }
-      const createItem = () => {
-        
-      }
-    
+    const clickEdit = (id) => {
+        history.push(`/items/edit/${id}`);
+    }
 
     return (
         <div>
@@ -74,7 +69,7 @@ const ListItem = props => {
                             <td>{item.quantity}</td>
                             <td>{item.baseUnit}</td>
                             <td>
-                                <Button type="button" variant="primary">Edit</Button> &nbsp;
+                                <Button type="button" variant="primary" onClick={() => clickEdit(item._id)}>Edit</Button> &nbsp;
                                 <Button type="button" variant="primary">Delete</Button>
                             </td>
                         </tr>
