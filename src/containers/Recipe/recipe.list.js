@@ -1,10 +1,5 @@
-// import CreateItem from '../Inventory/createItem';
-// import EditItem from '../Inventory/EditItem';
 import React, { useState, useEffect } from 'react';
 import { withRouter, useHistory } from 'react-router-dom';
-// import ListInventory from '../Inventory/ListInventory';
-import Jumbotron from 'react-bootstrap/Jumbotron';
-// import Spinner from 'react-bootstrap/Spinner';
 import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
 import {Link} from 'react-router-dom'
@@ -15,7 +10,7 @@ function RecipeList (props) {
   const { screen, setScreen } = props;
   // return a stateful value and funcion to update it
   const [data, setData] = useState();
-  
+
   var [recipes, setRecipes] = useState([
     // {
     //     name: "Recipe 1",
