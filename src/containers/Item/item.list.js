@@ -3,7 +3,9 @@ import React, { useState, useEffect } from 'react';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Jumbotron from 'react-bootstrap/Jumbotron';
 import Button from 'react-bootstrap/Button';
-import {Link} from 'react-router-dom'
+import Table from 'react-bootstrap/Table';
+import {Link} from 'react-router-dom';
+import axios from 'axios';
 // import Spinner from 'react-bootstrap/Spinner';
 // import { withRouter } from 'react-router-dom';
 // import Login from '../Auth/Login';
@@ -11,29 +13,23 @@ import {Link} from 'react-router-dom'
 //List items
 const ListItem = props => {
     const [items, setItems] = useState([
-        {name:'Item 1', base_unit:'kg', qty:100}
+        // {name:'Item 1', base_unit:'kg', qty:100}
     ]);
     const [showLoading, setShowLoading] = useState(true);
     const apiUrl = "http://localhost:3001/api/items";
 
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //       axios.get(apiUrl)
-    //         .then(result => {
-    //           console.log('result.data:',result.data)
-    //           //check if the user has logged in
-    //            if(result.data.screen !== 'auth')
-    //            {
-    //             console.log('data in if:', result.data )
-    //             setData(result.data);
-    //             setShowLoading(false);
-    //           }
-    //         }).catch((error) => {
-    //           console.log('error in fetchData:', error)
-    //         });
-    //       };  
-    //     fetchData();
-    //   }, []);
+    useEffect(() => {
+        async function fetchData() {
+            const res = await axios.get(`${props.apiUrl}/item`);
+            if (res && res.data && res.data.error){
+                console.log('Error: ' + res.data.error);
+            } else if (res && res.data){
+                // console.log('res->' + JSON.stringify(res.data));
+                setItems(res.data);
+            }  
+        }
+        fetchData();
+    }, []);
     
       const showDetail = (id) => {
         props.history.push({
@@ -59,11 +55,36 @@ const ListItem = props => {
                 {/* <Button type="button" variant="danger" onClick={() => { deleteCookie() }}>Log out</Button> */}
               </p>
               
-              <ListGroup>
+              <Table striped bordered hover>
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Name</th>
+                      <th>Quantity</th>
+                      <th>Base Unit</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {items.map((item, idx) => (
+                        <tr>
+                            <td>{idx}</td>
+                            <td>{item.name}</td>
+                            <td>{item.quantity}</td>
+                            <td>{item.baseUnit}</td>
+                            <td>
+                                <Button type="button" variant="primary">Edit</Button> &nbsp;
+                                <Button type="button" variant="primary">Delete</Button>
+                            </td>
+                        </tr>
+                    ))}
+                  </tbody>
+                </Table>
+            {/* <ListGroup>
               {items.map((item, idx) => (
-                <ListGroup.Item key={idx} >{item.name} - {item.qty} {item.base_unit}</ListGroup.Item>
+                <ListGroup.Item key={idx} >{item.name} - {item.quantity} {item.baseUnit}</ListGroup.Item>
               ))}
-            </ListGroup>
+            </ListGroup> */}
             </Jumbotron>      
           : 'NO RECIPE'
         }
