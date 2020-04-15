@@ -19,6 +19,9 @@ function ItemAdd(props){
         // setEmployee({...employee, [e.target.name]: e.target.value});
         setItem({...item, [e.target.name]: e.target.value});
     }
+    const cancel = () => {
+        props.history.goBack();
+    }
 
     const saveItem = async (e) => {
         // setShowLoading(true);
@@ -58,6 +61,10 @@ function ItemAdd(props){
                 </Form.Group>
                 <Button variant="primary" type="submit">
                     Save
+                </Button>
+                &nbsp;
+                <Button variant="primary" onClick={() => cancel()}>
+                    Cancel
                 </Button>
                 </Form>
             </Jumbotron>
