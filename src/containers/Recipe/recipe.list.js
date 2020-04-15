@@ -6,35 +6,46 @@ import { withRouter, useHistory } from 'react-router-dom';
 import Jumbotron from 'react-bootstrap/Jumbotron';
 // import Spinner from 'react-bootstrap/Spinner';
 import Button from 'react-bootstrap/Button';
-import ListGroup from 'react-bootstrap/ListGroup';
+import Table from 'react-bootstrap/Table';
 import {Link} from 'react-router-dom'
-//
 import axios from 'axios';
-//
+
 function RecipeList (props) {
   // read the info from props, coming from the ancestor component
   const { screen, setScreen } = props;
   // return a stateful value and funcion to update it
   const [data, setData] = useState();
-  const apiUrl = 'http://localhost:3001';
 //   const history = useHistory();
   //
   var [recipes, setRecipes] = useState([
-    {
-        name: "Recipe 1",
-        items:[
-            {item:'ITEM_CODE_1', qty_to_use:10},
-            {item:'ITEM_CODE_2', qty_to_use:20},
-        ]
-    },
-    {
-        name: "Recipe 2",
-        items:[
-            {item:'ITEM_CODE_3', qty_to_use:15},
-            {item:'ITEM_CODE_4', qty_to_use:25},
-        ]
-    }
+    // {
+    //     name: "Recipe 1",
+    //     items:[
+    //         {item:'ITEM_CODE_1', qty_to_use:10},
+    //         {item:'ITEM_CODE_2', qty_to_use:20},
+    //     ]
+    // },
+    // {
+    //     name: "Recipe 2",
+    //     items:[
+    //         {item:'ITEM_CODE_3', qty_to_use:15},
+    //         {item:'ITEM_CODE_4', qty_to_use:25},
+    //     ]
+    // }
 ]);
+
+useEffect(() => {
+    async function fetchData() {
+        const res = await axios.get(`${props.apiUrl}/recipe`);
+        if (res && res.data && res.data.error){
+            console.log('Error: ' + res.data.error);
+        } else if (res && res.data){
+            // console.log('res->' + JSON.stringify(res.data));
+            setRecipes(res.data);
+        }  
+    }
+    fetchData();
+}, []);
 
 //   const load_recipes = async () => {
 //       //loading recipes
@@ -92,7 +103,7 @@ function RecipeList (props) {
   return (
     <div className="App">
       {recipes && recipes.length > 0
-        ? <Jumbotron>
+        ? <div>
             <h1>Recipes: </h1>
             
             <p>
@@ -103,12 +114,33 @@ function RecipeList (props) {
                 {/* <Button type="button" variant="primary" onClick={() => { createRecipe() }}>New</Button>&nbsp; */}
             </p>
             
-            <ListGroup>
+            {/* <ListGroup>
             {recipes.map((recipe, idx) => (
               <ListGroup.Item key={idx} >{recipe.name}</ListGroup.Item>
             ))}
-          </ListGroup>
-          </Jumbotron>      
+          </ListGroup> */}
+          <Table striped bordered hover>
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Name</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {recipes.map((recipe, idx) => (
+                        <tr>
+                        <td>{idx}</td>
+                        <td>{recipe.name}</td>
+                        <td>
+                            <Button type="button" variant="primary">Edit</Button> &nbsp;
+                            <Button type="button" variant="primary">Delete</Button>
+                        </td>
+                    </tr>
+                    ))}
+                  </tbody>
+                </Table>
+          </div>      
         : 'NO RECIPE'
       }
     </div>
