@@ -106,7 +106,7 @@ function App(props) {
         <PrivateRoute path="/items/edit/:id" exact>
             <ItemAdd apiUrl={apiUrl}/>
         </PrivateRoute>
-        <Route render ={()=> <Login setToken={setToken} />} exact path="/login"/>
+        <Route render ={()=> <Login setToken={setToken} apiUrl={apiUrl}/>} exact path="/login"/>
         
         {/* <Route render ={()=> <RecipeList apiUrl={apiUrl}/>} exact path="/recipes"/>
         <Route render ={()=> <RecipeAdd apiUrl={apiUrl}/>} exact path="/recipes/add"/>
