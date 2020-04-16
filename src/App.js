@@ -22,7 +22,8 @@ function App(props) {
   const Image= () => <div><img src={Logo} width="100%" height="auto" /></div>;
 //   const history = createBrowserHistory();
   const [token, setToken] = useState();
-  const apiUrl = 'http://localhost:3001';
+//   const apiUrl = 'http://localhost:3001';
+  const apiUrl = 'http://comp313-prj2-backend-dev.us-east-2.elasticbeanstalk.com';
   axios.defaults.headers.common['Authorization'] = token;
 //   axios.defaults.headers.common['Authorization'] = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlNzkzMDcyNjA4ZDRkM2VlOWYyMDc3NyIsInVzZXJuYW1lIjoiam92YW5lbWFycXVlcyIsImlhdCI6MTU4Njk3Njg1MiwiZXhwIjoxNTg3MDYzMjUyfQ.ohpfpSdKC4wMo5fRSZOUdcAanJBzk-3QScDFejqQnUo";
 
@@ -106,13 +107,14 @@ function App(props) {
             <ItemAdd apiUrl={apiUrl}/>
         </PrivateRoute>
         <Route render ={()=> <Login setToken={setToken} />} exact path="/login"/>
-        {/* <Route render ={()=> <RecipeList apiUrl={apiUrl}/>} exact path="/recipes"/> */}
-        {/* <Route render ={()=> <RecipeAdd apiUrl={apiUrl}/>} exact path="/recipes/add"/> */}
-        {/* <Route render ={()=> <RecipeAdd apiUrl={apiUrl}/>} exact path="/recipes/edit/:id"/> */}
-        {/* <Route render ={()=> <ItemList apiUrl={apiUrl}/>} exact path="/items"/> */}
-        {/* <Route render ={()=> <ItemAdd apiUrl={apiUrl}/>} exact path="/items/add"/> */}
-        {/* <Route render ={()=> <ItemAdd apiUrl={apiUrl}/>} exact path="/items/edit/:id"/> */}
-        {/* <Route render ={()=> <InventoryList />} exact path="/inventory"/> */}
+        
+        {/* <Route render ={()=> <RecipeList apiUrl={apiUrl}/>} exact path="/recipes"/>
+        <Route render ={()=> <RecipeAdd apiUrl={apiUrl}/>} exact path="/recipes/add"/>
+        <Route render ={()=> <RecipeAdd apiUrl={apiUrl}/>} exact path="/recipes/edit/:id"/>
+        <Route render ={()=> <ItemList apiUrl={apiUrl}/>} exact path="/items"/>
+        <Route render ={()=> <ItemAdd apiUrl={apiUrl}/>} exact path="/items/add"/>
+        <Route render ={()=> <ItemAdd apiUrl={apiUrl}/>} exact path="/items/edit/:id"/> */}
+        
         {/* <Route render ={()=> <Sales />} path="/sales"/>
         <Route render ={()=> <Login />} path="/login" />
 
