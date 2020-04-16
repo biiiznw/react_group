@@ -29,8 +29,7 @@ function RecipeAdd(props){
     const [currentItemComboQty, setCurrentItemComboQty] = useState('');
     //items to save
     const [items, setItems] = useState([
-        // {name:'Item 1', base_unit:'kg', qty:100},
-        // {name:'Item 2', base_unit:'g', qty:200},
+        // {item:'ITEM_CODE', quantity: 100},
     ]);
 
     const [recipe, setRecipe] = useState();
@@ -54,7 +53,14 @@ function RecipeAdd(props){
                 } else if (res2 && res2.data){
                     // console.log('res->' + JSON.stringify(res.data));
                     setRecipe(res2.data.name);
-                    setItems(res2.data.items);
+                    setItems(res2.data.items.map(i => {
+                        return {
+                            item: i._id,
+                            name: i.item.name,
+                            quantity: i.quantity,
+                            baseUnit: i.item.baseUnit,
+                        }
+                    }));
                 }  
             }
         }
@@ -72,26 +78,22 @@ function RecipeAdd(props){
     }
 
     const deleteItem = (item) => {
-        let temp = items.filter((i) => i._id !== item);
+        let temp = items.filter((i) => i.item._id !== item);
         setItems([...temp]);
     }
     const addItem = () => {
-        // e.preventDefault();
-        // setItems([...items, {[e.target.name]: e.target.value}]);
-        console.log(itemsCombo);
-        console.log(currentItemCombo);
         let temp = itemsCombo.filter((i) => i._id == currentItemCombo)[0];
-        console.log(temp);
-        setItems([...items, {...temp}]);
+        //setItems([...items, {item:temp._id, baseUnit:temp.baseUnit, quantity: currentItemComboQty}]);
+        setItems([...items, {item:temp._id, name: temp.name, baseUnit: temp.baseUnit, quantity: currentItemComboQty}]);
     }
 
     const saveRecipe = async (e) => {
         // setShowLoading(true);
         e.preventDefault();
         console.log('saving');
-        let newItems = items.map(i => i._id);
+        // let newItems = items.map(i => i.item._id);
 
-        const data = { name: recipe, items: newItems };
+        const data = { name: recipe, items: items };
         
         let res;
         //const res = await axios.post(`${props.apiUrl}/recipe`, data);
@@ -158,24 +160,15 @@ function RecipeAdd(props){
                             </tr>
                         </thead>
                         <tbody>
-                                {/* <tr>
-                                    <td>idx</td>
-                                    <td>item.name</td>
-                                    <td>item.quantity</td>
-                                    <td>item.baseUnit</td>
-                                    <td>
-                                        <Button type="button" variant="primary">Delete</Button>
-                                    </td>
-                                </tr> */}
                             {items && items.length > 0 ?
-                                items.map((item, idx) => (
+                                items.map((i, idx) => (
                                 <tr key={idx}>
                                     <td>{idx}</td>
-                                    <td>{item.name}</td>
-                                    <td>{item.quantity}</td>
-                                    <td>{item.baseUnit}</td>
+                                    <td>{i.name}</td>
+                                    <td>{i.quantity}</td>
+                                    <td>{i.baseUnit}</td>
                                     <td>
-                                        <Button type="button" variant="primary" onClick={() => deleteItem(item._id)}>Delete</Button>
+                                        <Button type="button" variant="primary" onClick={() => deleteItem(i._id)}>Delete</Button>
                                     </td>
                                 </tr>
                             ))
