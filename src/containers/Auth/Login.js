@@ -9,13 +9,10 @@ import {
     useHistory,
     Redirect,
   } from "react-router-dom";
-//
-import View from '../Recipe/View'
-//
-function Login(props) {
+
+  function Login(props) {
   //state variable for the screen, admin or user
   const [screen, setScreen] = useState('auth');
-  const [employee, setEmployee] = useState({});
   //store input field data, user name and password
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
@@ -24,7 +21,6 @@ function Login(props) {
   //send username and password to the server
   // for initial authentication
 
-  let history = useHistory();
   let location = useLocation();
   let { from } = location.state || { from: { pathname: "/" } };
 
