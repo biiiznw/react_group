@@ -16,22 +16,7 @@ function RecipeList (props) {
   const [showAlert, setShowAlert] = useState();
   const [showModal, setShowModal] = useState();
   const [showModalResult, setShowModalResult] = useState();
-  var [recipes, setRecipes] = useState([
-    // {
-    //     name: "Recipe 1",
-    //     items:[
-    //         {item:'ITEM_CODE_1', qty_to_use:10},
-    //         {item:'ITEM_CODE_2', qty_to_use:20},
-    //     ]
-    // },
-    // {
-    //     name: "Recipe 2",
-    //     items:[
-    //         {item:'ITEM_CODE_3', qty_to_use:15},
-    //         {item:'ITEM_CODE_4', qty_to_use:25},
-    //     ]
-    // }
-]);
+  var [recipes, setRecipes] = useState([]);
 
     useEffect(() => {
         async function fetchData() {
@@ -48,6 +33,10 @@ function RecipeList (props) {
 
     const clickEdit = (id) => {
         history.push(`/recipes/edit/${id}`);
+    }
+
+    const clickUse = (id) => {
+        history.push(`/recipes/use/${id}`);
     }
 
     const clickDelete = (id) => {
@@ -133,7 +122,7 @@ function RecipeList (props) {
                         <td>{idx}</td>
                         <td>{recipe.name}</td>
                         <td>
-                            <Button type="button" variant="primary">Use</Button> &nbsp;
+                            <Button type="button" variant="primary" onClick={() => clickUse(recipe._id)}>Use</Button> &nbsp;
                             <Button type="button" variant="primary" onClick={() => clickEdit(recipe._id)}>Edit</Button> &nbsp;
                             <Button type="button" variant="primary" onClick={() => clickDelete(recipe._id)}>Delete</Button>
                         </td>

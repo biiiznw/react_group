@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   BrowserRouter as Router,
   Route,
@@ -9,10 +9,10 @@ import './App.css';
 
 import RecipeAdd from './containers/Recipe/recipe.add';
 import RecipeList from './containers/Recipe/recipe.list';
+import RecipeUse from './containers/Recipe/recipe.use';
 import ItemList from './containers/Item/item.list';
 import ItemAdd from './containers/Item/item.add';
 import Login from './containers/Auth/Login';
-// import { createBrowserHistory } from "history";
 import Logo from './components/image/home.png';
 import axios from 'axios';
 
@@ -20,13 +20,15 @@ import axios from 'axios';
 function App(props) {
 
   const Image= () => <div><img src={Logo} width="100%" height="auto" /></div>;
-//   const history = createBrowserHistory();
   const [token, setToken] = useState();
 //   const apiUrl = 'http://localhost:3001';
   const apiUrl = 'http://comp313-prj2-backend-dev.us-east-2.elasticbeanstalk.com';
+  
   axios.defaults.headers.common['Authorization'] = token;
 //   axios.defaults.headers.common['Authorization'] = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlNzkzMDcyNjA4ZDRkM2VlOWYyMDc3NyIsInVzZXJuYW1lIjoiam92YW5lbWFycXVlcyIsImlhdCI6MTU4Njk3Njg1MiwiZXhwIjoxNTg3MDYzMjUyfQ.ohpfpSdKC4wMo5fRSZOUdcAanJBzk-3QScDFejqQnUo";
-
+    useEffect(() => {
+        // setToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlNzkzMDcyNjA4ZDRkM2VlOWYyMDc3NyIsInVzZXJuYW1lIjoiam92YW5lbWFycXVlcyIsImlhdCI6MTU4Njk3Njg1MiwiZXhwIjoxNTg3MDYzMjUyfQ.ohpfpSdKC4wMo5fRSZOUdcAanJBzk-3QScDFejqQnUo");
+    }, []);
     // A wrapper for <Route> that redirects to the login
     // screen if you're not yet authenticated.
     function PrivateRoute({ children, ...rest }) {
@@ -51,10 +53,6 @@ function App(props) {
         />
         );
     }
-
-    // function logout() {
-    //     //setToken();
-    // }
 
   return (
     <Router>
@@ -81,67 +79,61 @@ function App(props) {
     
   <section className="page-section portfolio" id="portfolio">
     <div className="container">
-
       <div className="row">
-
         <div className="col-md-12">
-          
-    <div> 
-        <Route render ={()=> < App/>} path="/" exact component={Image} />  
-        <PrivateRoute path="/recipes" exact>
-            <RecipeList apiUrl={apiUrl}/>
-        </PrivateRoute>
-        <PrivateRoute path="/recipes/add" exact>
-            <RecipeAdd apiUrl={apiUrl}/>
-        </PrivateRoute>
-        <PrivateRoute path="/recipes/edit/:id" exact>
-            <RecipeAdd apiUrl={apiUrl}/>
-        </PrivateRoute>
-        <PrivateRoute path="/items" exact>
-            <ItemList apiUrl={apiUrl}/>
-        </PrivateRoute>
-        <PrivateRoute path="/items/add" exact>
-            <ItemAdd apiUrl={apiUrl}/>
-        </PrivateRoute>
-        <PrivateRoute path="/items/edit/:id" exact>
-            <ItemAdd apiUrl={apiUrl}/>
-        </PrivateRoute>
-        <Route render ={()=> <Login setToken={setToken} apiUrl={apiUrl}/>} exact path="/login"/>
-        
-        {/* <Route render ={()=> <RecipeList apiUrl={apiUrl}/>} exact path="/recipes"/>
-        <Route render ={()=> <RecipeAdd apiUrl={apiUrl}/>} exact path="/recipes/add"/>
-        <Route render ={()=> <RecipeAdd apiUrl={apiUrl}/>} exact path="/recipes/edit/:id"/>
-        <Route render ={()=> <ItemList apiUrl={apiUrl}/>} exact path="/items"/>
-        <Route render ={()=> <ItemAdd apiUrl={apiUrl}/>} exact path="/items/add"/>
-        <Route render ={()=> <ItemAdd apiUrl={apiUrl}/>} exact path="/items/edit/:id"/> */}
-        
-        {/* <Route render ={()=> <Sales />} path="/sales"/>
-        <Route render ={()=> <Login />} path="/login" />
+            <div> 
+                <Route render ={()=> < App/>} path="/" exact component={Image} />  
+                <PrivateRoute path="/recipes" exact>
+                    <RecipeList apiUrl={apiUrl}/>
+                </PrivateRoute>
+                <PrivateRoute path="/recipes/add" exact>
+                    <RecipeAdd apiUrl={apiUrl}/>
+                </PrivateRoute>
+                <PrivateRoute path="/recipes/edit/:id" exact>
+                    <RecipeAdd apiUrl={apiUrl}/>
+                </PrivateRoute>
+                <PrivateRoute path="/recipes/use/:id" exact>
+                    <RecipeUse apiUrl={apiUrl}/>
+                </PrivateRoute>
+                <PrivateRoute path="/items" exact>
+                    <ItemList apiUrl={apiUrl}/>
+                </PrivateRoute>
+                <PrivateRoute path="/items/add" exact>
+                    <ItemAdd apiUrl={apiUrl}/>
+                </PrivateRoute>
+                <PrivateRoute path="/items/edit/:id" exact>
+                    <ItemAdd apiUrl={apiUrl}/>
+                </PrivateRoute>
+                <Route render ={()=> <Login setToken={setToken} apiUrl={apiUrl}/>} exact path="/login"/>
+                
+                {/* <Route render ={()=> <RecipeUse apiUrl={apiUrl}/>} exact path="/recipes/use/:id"/> */}
+                {/* <Route render ={()=> <RecipeList apiUrl={apiUrl}/>} exact path="/recipes"/>
+                <Route render ={()=> <RecipeAdd apiUrl={apiUrl}/>} exact path="/recipes/add"/>
+                <Route render ={()=> <RecipeAdd apiUrl={apiUrl}/>} exact path="/recipes/edit/:id"/>
+                <Route render ={()=> <ItemList apiUrl={apiUrl}/>} exact path="/items"/>
+                <Route render ={()=> <ItemAdd apiUrl={apiUrl}/>} exact path="/items/add"/>
+                <Route render ={()=> <ItemAdd apiUrl={apiUrl}/>} exact path="/items/edit/:id"/> */}
+                
+                {/* <Route render ={()=> <Sales />} path="/sales"/>
+                <Route render ={()=> <Login />} path="/login" />
 
-        <Route render ={()=> <CreateEmployee />} path="/create"/>
-        <Route render ={()=> <CreateItem />} path="/createitem"/>
+                <Route render ={()=> <CreateEmployee />} path="/create"/>
+                <Route render ={()=> <CreateItem />} path="/createitem"/>
 
-        <Route render ={()=> <EditEmployee />} path="/edit/:id" />
-        <Route render ={()=> <EditItem />} path="/edititem/:id" />
+                <Route render ={()=> <EditEmployee />} path="/edit/:id" />
+                <Route render ={()=> <EditItem />} path="/edititem/:id" />
 
-        <Route render ={()=> <ListEmployee />} path="/list"/>
-        <Route render ={()=> <ListItem />} path="/listItem"/>
+                <Route render ={()=> <ListEmployee />} path="/list"/>
+                <Route render ={()=> <ListItem />} path="/listItem"/>
 
-        <Route render ={()=> <ShowEmployee />} path="/show/:id"/>
-        <Route render ={()=> <ShowItem />} path="/showitem/:id"/> */}
-
-      </div>
+                <Route render ={()=> <ShowEmployee />} path="/show/:id"/>
+                <Route render ={()=> <ShowItem />} path="/showitem/:id"/> */}
+            </div>
         </div>
-
-
       </div>
-     
-
     </div>
   </section>
-     
     </Router>
-
     );
 }
 export default App;
