@@ -19,7 +19,7 @@ import axios from 'axios';
 //
 function App(props) {
 
-  const Image= () => <div><img src={Logo} width="100%" height="auto" /></div>;
+  const Image= () => <div><img alt='' src={Logo} width="100%" height="auto" /></div>;
   const [token, setToken] = useState();
 //   const apiUrl = 'http://localhost:3001';
   const apiUrl = 'http://comp313-prj2-backend-dev.us-east-2.elasticbeanstalk.com';

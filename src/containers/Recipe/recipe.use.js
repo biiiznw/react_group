@@ -11,11 +11,7 @@ import { withRouter } from 'react-router-dom';
 function RecipeUse(props){
 
     //select list
-    const [itemsCombo, setItemsCombo] = useState([
-    ]);
     //items chosen
-    const [currentItemCombo, setCurrentItemCombo] = useState('');
-    const [currentItemComboQty, setCurrentItemComboQty] = useState('');
     const [showAlert, setShowAlert] = useState();
     //items to save
     const [items, setItems] = useState([
@@ -24,18 +20,8 @@ function RecipeUse(props){
 
     const [recipe, setRecipe] = useState();
 
-    let myInput;
-
     useEffect(() => {
         async function fetchData() {
-            const res = await axios.get(`${props.apiUrl}/item`);
-            if (res && res.data && res.data.error){
-                console.log('Error: ' + res.data.error);
-            } else if (res && res.data){
-                // console.log('res->' + JSON.stringify(res.data));
-                setItemsCombo(res.data);
-            } 
-            
             if (props.match.params.id){
                 const res2 = await axios.get(`${props.apiUrl}/recipe/listWithItems/${props.match.params.id}`);
                 if (res2 && res2.data && res2.data.error){
@@ -66,16 +52,6 @@ function RecipeUse(props){
 
     const cancel = () => {
         props.history.goBack();
-    }
-
-    const deleteItem = (item) => {
-        let temp = items.filter((i) => i.item._id !== item);
-        setItems([...temp]);
-    }
-    const addItem = () => {
-        let temp = itemsCombo.filter((i) => i._id == currentItemCombo)[0];
-        //setItems([...items, {item:temp._id, baseUnit:temp.baseUnit, quantity: currentItemComboQty}]);
-        setItems([...items, {item:temp._id, name: temp.name, baseUnit: temp.baseUnit, quantity: currentItemComboQty}]);
     }
 
     const useRecipe = async (e) => {

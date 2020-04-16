@@ -6,21 +6,13 @@ import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
 import {Link, useHistory} from 'react-router-dom';
 import axios from 'axios';
-// import Spinner from 'react-bootstrap/Spinner';
-// import { withRouter } from 'react-router-dom';
-// import Login from '../Auth/Login';
 
 //List items
 const ListItem = props => {
     let history = useHistory();
-    const [items, setItems] = useState([
-        // {name:'Item 1', base_unit:'kg', qty:100}
-    ]);
+    const [items, setItems] = useState([]);
     const [showAlert, setShowAlert] = useState();
     const [showModal, setShowModal] = useState();
-    const [showModalResult, setShowModalResult] = useState();
-    const [showLoading, setShowLoading] = useState(true);
-    // const apiUrl = "http://localhost:3001/api/items";
 
     useEffect(() => {
         async function fetchData() {
@@ -28,7 +20,6 @@ const ListItem = props => {
             if (res && res.data && res.data.error){
                 console.log('Error: ' + res.data.error);
             } else if (res && res.data){
-                // console.log('res->' + JSON.stringify(res.data));
                 setItems(res.data);
             }  
         }
@@ -46,8 +37,7 @@ const ListItem = props => {
             if (res && res.data && res.data.error){
                 console.log('Error: ' + res.data.error);
             } else if (res && res.data){
-                // console.log('res->' + JSON.stringify(res.data));
-                setItems(items.filter(i => i._id != id));
+                setItems(items.filter(i => i._id !== id));
                 setShowAlert({tltle:'Success', message:'Item deleted!'});
             } 
         };
@@ -82,7 +72,6 @@ const ListItem = props => {
                         <Button variant="primary" 
                             onClick={() => {
                                 setShowModal();
-                                setShowModalResult(true);
                                 showModal.cbFunctionYes();
                             }}
                         >

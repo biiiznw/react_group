@@ -2,22 +2,10 @@ import React, {useState, useEffect} from 'react';
 import Jumbotron from 'react-bootstrap/Jumbotron';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import ListGroup from 'react-bootstrap/ListGroup';
 import Card from 'react-bootstrap/Card';
 import Table from 'react-bootstrap/Table';
 import axios from 'axios';
-// import { connect, useDispatch, useSelector } from 'react-redux';
-
 import { withRouter } from 'react-router-dom';
-
-// import Aux from '../../hoc/Aux/Aux';
-// import Modal from '../../components/UI/Modal/Modal';
-
-// import Spinner from '../../components/UI/Spinner/Spinner';
-// import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
-// import * as actions from '../../store/actions/index';
-// import axios from '../../axios-orders';
-
 
 function RecipeAdd(props){
 
@@ -29,12 +17,9 @@ function RecipeAdd(props){
     const [currentItemComboQty, setCurrentItemComboQty] = useState('');
     //items to save
     const [items, setItems] = useState([
-        // {item:'ITEM_CODE', quantity: 100},
     ]);
 
     const [recipe, setRecipe] = useState();
-
-    let myInput;
 
     useEffect(() => {
         async function fetchData() {
@@ -42,7 +27,6 @@ function RecipeAdd(props){
             if (res && res.data && res.data.error){
                 console.log('Error: ' + res.data.error);
             } else if (res && res.data){
-                // console.log('res->' + JSON.stringify(res.data));
                 setItemsCombo(res.data);
             } 
             
@@ -51,7 +35,6 @@ function RecipeAdd(props){
                 if (res2 && res2.data && res2.data.error){
                     console.log('Error: ' + res2.data.error);
                 } else if (res2 && res2.data){
-                    // console.log('res->' + JSON.stringify(res.data));
                     setRecipe(res2.data.name);
                     setItems(res2.data.items.map(i => {
                         return {
@@ -82,7 +65,7 @@ function RecipeAdd(props){
         setItems([...temp]);
     }
     const addItem = () => {
-        let temp = itemsCombo.filter((i) => i._id == currentItemCombo)[0];
+        let temp = itemsCombo.filter((i) => i._id === currentItemCombo)[0];
         //setItems([...items, {item:temp._id, baseUnit:temp.baseUnit, quantity: currentItemComboQty}]);
         setItems([...items, {item:temp._id, name: temp.name, baseUnit: temp.baseUnit, quantity: currentItemComboQty}]);
     }

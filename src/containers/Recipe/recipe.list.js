@@ -10,12 +10,9 @@ import axios from 'axios';
 function RecipeList (props) {
     let history = useHistory();
   // read the info from props, coming from the ancestor component
-  const { screen, setScreen } = props;
   // return a stateful value and funcion to update it
-  const [data, setData] = useState();
   const [showAlert, setShowAlert] = useState();
   const [showModal, setShowModal] = useState();
-  const [showModalResult, setShowModalResult] = useState();
   var [recipes, setRecipes] = useState([]);
 
     useEffect(() => {
@@ -47,7 +44,7 @@ function RecipeList (props) {
                 console.log('Error: ' + res.data.error);
             } else if (res && res.data){
                 // console.log('res->' + JSON.stringify(res.data));
-                setRecipes(recipes.filter(i => i._id != id));
+                setRecipes(recipes.filter(i => i._id !== id));
                 setShowAlert({tltle:'Success', message:'Recipe deleted!'});
             } 
         };
@@ -82,7 +79,6 @@ function RecipeList (props) {
                         <Button variant="primary" 
                             onClick={() => {
                                 setShowModal();
-                                setShowModalResult(true);
                                 showModal.cbFunctionYes();
                             }}
                         >
