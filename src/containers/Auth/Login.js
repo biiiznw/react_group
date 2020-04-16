@@ -20,7 +20,7 @@ function Login(props) {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
 //   const apiUrl = "http://localhost:3001/signin";
-  const apiUrl = "http://localhost:3001";
+//   const apiUrl = "http://localhost:3001";
   //send username and password to the server
   // for initial authentication
 
@@ -35,7 +35,7 @@ function Login(props) {
       //make a get request to /authenticate end-point on the server
       const loginData = { auth: { email: email, password } }
       //call api
-      const res = await axios.post(`${apiUrl}/signin`, loginData);
+      const res = await axios.post(`${props.apiUrl}/signin`, loginData);
     //   console.log(res.data.auth);
       console.log(res.data.screen);
       console.log("logging retur from server when login:");
